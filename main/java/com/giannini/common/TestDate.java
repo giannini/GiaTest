@@ -1,4 +1,4 @@
-package com.giannini.test;
+package com.giannini.common;
 
 import java.util.Date;
 
