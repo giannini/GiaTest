@@ -1,0 +1,57 @@
+#daishuyun_easylog
+filebeat:
+  registry_file: /var/lib/filebeat/registry
+  prospectors:
+    - 
+      paths:
+        - /var/log/mysql/error.log
+
+      input_type: log
+
+      fields:
+          user_token: fd7b14d4f6ec11e5ba8cac853da49b78
+          logtype: no_log
+          tag: shasha,huanxiong
+          appname: huanxiong
+
+      fields_under_root: true
+      tail_files: true
+
+    -
+      paths:
+        - /var/log/nginx/msg.log
+
+      input_type: log
+
+      fields:
+          user_token: fd7b14d4f6ec11e5ba8cac853da49b78
+          logtype: nginx_log
+          tag: nginx,web
+          appname: webentry
+
+      fields_under_root: true
+      tail_files: true
+
+output:
+  logstash:
+    hosts: ["recv.log.dtstack.com:8635"]
+
+  console:
+    pretty: true
+
+shipper:
+
+logging:
+  #level: warning
+  level: info
+
+  # enable file rotation with default configuration
+  to_files: true
+
+  # do not log to syslog
+  to_syslog: false
+
+  files:
+    path: /var/log/mybeat
+    name: mybeat.log
+    keepfiles: 7
