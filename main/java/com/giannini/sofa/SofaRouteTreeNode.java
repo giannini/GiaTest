@@ -168,6 +168,8 @@ public class SofaRouteTreeNode implements Comparable<SofaRouteTreeNode> {
         // 孤点
         SofaRouteTreeNode node21 = new SofaRouteTreeNode();
         node21.setRpcId("0.4.1.2.1");
+        SofaRouteTreeNode node22 = new SofaRouteTreeNode();
+        node22.setRpcId("0.5.1");
 
 
         List<SofaRouteTreeNode> nodes = new ArrayList<SofaRouteTreeNode>();
@@ -192,6 +194,7 @@ public class SofaRouteTreeNode implements Comparable<SofaRouteTreeNode> {
         nodes.add(node19);
         nodes.add(node20);
         nodes.add(node21);
+        nodes.add(node22);
 
         return nodes;
     }
@@ -261,6 +264,42 @@ public class SofaRouteTreeNode implements Comparable<SofaRouteTreeNode> {
         return root;
     }
 
+    /**
+     * clean null 节点
+     *
+     * @param root
+     * @return
+     */
+    public static SofaRouteTreeNode clean(SofaRouteTreeNode root) {
+
+        List<SofaRouteTreeNode> nodes = new LinkedList<SofaRouteTreeNode>();
+        nodes.add(root);
+        while (!nodes.isEmpty()) {
+            List<SofaRouteTreeNode> node2 = new LinkedList<SofaRouteTreeNode>();
+            for (SofaRouteTreeNode tmp : nodes) {
+                node2.add(tmp);
+            }
+            nodes = new LinkedList<SofaRouteTreeNode>();
+            for (SofaRouteTreeNode node : node2) {
+                if (node.getNodes() == null) {
+                    continue;
+                } else {
+                    Iterator<SofaRouteTreeNode> it = node.getNodes().iterator();
+                    while (it.hasNext()) {
+                        SofaRouteTreeNode next = it.next();
+                        if (next == null) {
+                            it.remove();
+                        } else {
+                            nodes.add(next);
+                        }
+                    }
+                }
+            }
+        }
+
+        return root;
+    }
+
     public static void main(String[] args) {
         List<SofaRouteTreeNode> nodelist = make();
         //System.out.println(JSON.toJSONString(nodelist));
@@ -268,6 +307,8 @@ public class SofaRouteTreeNode implements Comparable<SofaRouteTreeNode> {
         //System.out.println(JSON.toJSONString(nodelist));
         SofaRouteTreeNode root = buildTree(nodelist);
         System.out.println();
+        System.out.println(JSON.toJSONString(root));
+        root = clean(root);
         System.out.println(JSON.toJSONString(root));
     }
 
