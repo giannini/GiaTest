@@ -58,7 +58,7 @@
         <dependency>
             <groupId>io.thekraken</groupId>
             <artifactId>grok</artifactId>
-            <version>0.1.5</version>
+            <version>0.1.4</version>
         </dependency>
 
         <!--<dependency>-->
