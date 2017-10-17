@@ -5,6 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,23 @@ public class JSONTest {
 
         JSONTest jsonTest = new JSONTest();
         //jsonTest.test();
-        jsonTest.testParsedResult();
+//        jsonTest.testParsedResult();
+        jsonTest.testVehicleTag();
+    }
+
+    public void testVehicleTag() {
+        List<VehicleFaultTag> tags = new LinkedList<VehicleFaultTag>();
+        VehicleFaultTag tag1 = new VehicleFaultTag();
+        tag1.setId(1);
+        tag1.setName("1号");
+        tags.add(tag1);
+        VehicleFaultTag tag2 = new VehicleFaultTag();
+        tag2.setId(2);
+        tag2.setName("2号");
+        tags.add(tag2);
+
+        System.out.println(JSON.toJSONString(tags));
+
     }
 
     public void testParsedResult() {
@@ -31,7 +48,7 @@ public class JSONTest {
 
         SonResult son2 = new SonResult();
         son2.setMessage("thread-123");
-        Map<String,SonResult> map2 = new HashMap<String, SonResult>();
+        Map<String, SonResult> map2 = new HashMap<String, SonResult>();
         map2.put("a", son);
         map2.put("b", son1);
         son2.setNext(map2);
@@ -41,7 +58,7 @@ public class JSONTest {
 
         ParserResult result = new ParserResult();
         result.setBaseMessage("user:abc, method:thread-123");
-        Map<String, SonResult> map1= new HashMap<String, SonResult>();
+        Map<String, SonResult> map1 = new HashMap<String, SonResult>();
         map1.put("user", son3);
         map1.put("method", son2);
         result.setValues(map1);
@@ -60,8 +77,8 @@ public class JSONTest {
         testMap.put("age", 17);
         test.setOthers(testMap);
         System.out.println(JSON.toJSONString(testMap));
-        System.out.println(JSON.toJSONString(testMap, SerializerFeature.UseSingleQuotes ));
-       // System.out.println(JSON.toJSONString(test));
+        System.out.println(JSON.toJSONString(testMap, SerializerFeature.UseSingleQuotes));
+        // System.out.println(JSON.toJSONString(test));
     }
 
     public class TestObject {
@@ -72,7 +89,7 @@ public class JSONTest {
         @JSONField(name = "level")
         private int level;
 
-        @JSONField( )
+        @JSONField()
         private Map<String, Object> others;
 
         @JSONField(name = "next")
