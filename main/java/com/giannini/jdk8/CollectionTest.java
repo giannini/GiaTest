@@ -3,6 +3,7 @@ package com.giannini.jdk8;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 
+import java.io.UncheckedIOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,8 @@ public class CollectionTest {
 
     public static void main(String[] args) {
         listToList();
-        listToMap();
-        groupByMap();
+        //listToMap();
+        // groupByMap();
     }
 
     private static void listToList() {
@@ -37,6 +38,7 @@ public class CollectionTest {
             return vo;
         }).collect(Collectors.toList());
         System.out.println(JSON.toJSONString(userVO));
+
     }
 
     private static void listToMap() {
